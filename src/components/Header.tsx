@@ -1,4 +1,5 @@
 import { Sparkles } from "lucide-react";
+import avatarImg from "../assets/avatar.png";
 
 export const Header = () => {
   return (
@@ -10,10 +11,12 @@ export const Header = () => {
         </h1>
       </div>
       
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg">
-        <span className="text-2xl" role="img" aria-label="avatar">
-          ✨
-        </span>
+      <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white shadow-lg">
+        <img 
+          src={avatarImg} 
+          alt="Frani's avatar" 
+          className="h-full w-full object-cover"
+        />
       </div>
     </header>
   );
