@@ -1,9 +1,10 @@
-import { Calendar, Cloud, Heart, Smile, Sparkles } from "lucide-react";
+import { Calendar, Cloud, Heart, Smile, Sparkles, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../lib/utils";
 
 interface InputAreaProps {
   onGenerate: (data: OutfitData) => void;
+  isLoading: boolean;
 }
 
 export interface OutfitData {
@@ -34,7 +35,7 @@ const comfortOptions = [
   { value: "fancy", label: "Fancy", icon: "✨" },
 ];
 
-export const InputArea = ({ onGenerate }: InputAreaProps) => {
+export const InputArea = ({ onGenerate, isLoading }: InputAreaProps) => {
   const [date, setDate] = useState("");
   const [weather, setWeather] = useState("");
   const [vibe, setVibe] = useState("");
@@ -153,17 +154,26 @@ export const InputArea = ({ onGenerate }: InputAreaProps) => {
       <div className="flex justify-center pt-4">
         <button
           onClick={handleGenerate}
-          disabled={!isFormComplete}
+          disabled={!isFormComplete || isLoading}
           className={cn(
             "flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold text-white shadow-xl transition-all",
-            isFormComplete
+            isFormComplete && !isLoading
               ? "bg-frani-purple-500 hover:scale-105 hover:bg-frani-purple-600 hover:shadow-2xl"
               : "cursor-not-allowed bg-frani-gray-400 opacity-50"
           )}
           aria-label="Generar outfit con IA"
         >
-          <Sparkles className="h-6 w-6" strokeWidth={1.5} />
-          ¡Vísteme, IA!
+          {isLoading ? (
+            <>
+              <Loader2 className="h-6 w-6 animate-spin" strokeWidth={1.5} />
+              Creando tu outfit...
+            </>
+          ) : (
+            <>
+              <Sparkles className="h-6 w-6" strokeWidth={1.5} />
+              ¡Vísteme, IA!
+            </>
+          )}
         </button>
       </div>
     </div>
